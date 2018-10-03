@@ -109,6 +109,15 @@ namespace NFluent.Tests
             Check.That(value).IsNotZero().And.IsBefore(100);
         }
 
+        [Test]
+        public void IsEvenWorks()
+        {
+            const int evenNumber = 4;
+            const int oddNumber = 7;
+
+            Check.That(evenNumber).IsEven();
+            Check.That(oddNumber).IsOdd();
+        }
         #endregion
     }
 }

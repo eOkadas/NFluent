@@ -225,5 +225,47 @@ namespace NFluent
         {
             return EqualityHelper.PerformEqualCheck(check , expected);
         }
+
+        /// <summary>
+        /// Checks that the actual value is an even number
+        /// </summary>
+        /// <param name="check">The fluent check to be extended.</param>
+        /// <returns>
+        ///   <returns>A check link.</returns>
+        /// </returns>
+        /// <exception cref="FluentCheckException">The value is equal to zero.</exception>
+        public static ICheckLink<ICheck<int>> IsEven(this ICheck<int> check)
+        {
+            ExtensibilityHelper.BeginCheck(check)
+                .FailWhen(sut => !InternalIsEven(sut), "The integer {0} is not a multiple of 2.")
+                .OnNegate("The integer {0} is a multiple of 2 whereas it must not be.")
+                .EndCheck();
+            return ExtensibilityHelper.BuildCheckLink(check);
+        }
+
+        /// <summary>
+        /// Checks that the actual value is an even number
+        /// </summary>
+        /// <param name="check">The fluent check to be extended.</param>
+        /// <returns>
+        ///   <returns>A check link.</returns>
+        /// </returns>
+        /// <exception cref="FluentCheckException">The value is equal to zero.</exception>
+        public static ICheckLink<ICheck<int>> IsOdd(this ICheck<int> check)
+        {
+            return check.Not.IsEven();
+        }
+
+        /// <summary>
+        /// Checks whether a given value can be divided exactly by two.
+        /// </summary>
+        /// <param name="value">The value.</param>
+        /// <returns>
+        ///   <c>true</c> if the specified value is equal to zero; false otherwise.
+        /// </returns>
+        private static bool InternalIsEven(int value)
+        {
+            return value % 2 == 0;
+        }
     }
 }

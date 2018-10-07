@@ -15,6 +15,7 @@
 namespace NFluent.Tests
 {
     using Helpers;
+    using NFluent.Helpers;
     using NUnit.Framework;
 
     [TestFixture]
@@ -113,10 +114,46 @@ namespace NFluent.Tests
         public void IsEvenWorks()
         {
             const int evenNumber = 4;
-            const int oddNumber = 7;
 
             Check.That(evenNumber).IsEven();
+        }
+
+        [Test]
+        public void IsOddWorks()
+        {
+            const int oddNumber = 7;
+            
             Check.That(oddNumber).IsOdd();
+        }
+
+        [Test]
+        public void IsEvenThrowsExceptionWhenFails()
+        {
+            const int oddNumber = 9;
+
+            Check.ThatCode(() =>
+            {
+                Check.That(oddNumber).IsEven();
+            }).IsAFaillingCheckWithMessage(
+                "",
+                "The checked value is odd.",
+                "The checked value:",
+                $"\t[{oddNumber}]");
+        }
+
+        [Test]
+        public void IsOddThrowsExceptionWhenFails()
+        {
+            const int evenNumber = 8;
+
+            Check.ThatCode(() =>
+            {
+                Check.That(evenNumber).IsOdd();
+            }).IsAFaillingCheckWithMessage(
+                "",
+                "The checked value is even whereas it must not be.",
+                "The checked value:",
+                $"\t[{evenNumber}]");
         }
         #endregion
     }

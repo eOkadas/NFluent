@@ -237,8 +237,8 @@ namespace NFluent
         public static ICheckLink<ICheck<int>> IsEven(this ICheck<int> check)
         {
             ExtensibilityHelper.BeginCheck(check)
-                .FailWhen(sut => !InternalIsEven(sut), "The integer {0} is not a multiple of 2.")
-                .OnNegate("The integer {0} is a multiple of 2 whereas it must not be.")
+                .FailWhen(sut => !InternalIsEven(sut), "The {0} is odd.")
+                .OnNegate("The {0} is even whereas it must not be.")
                 .EndCheck();
             return ExtensibilityHelper.BuildCheckLink(check);
         }

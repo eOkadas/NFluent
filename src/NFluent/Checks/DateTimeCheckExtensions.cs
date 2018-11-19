@@ -25,7 +25,7 @@ namespace NFluent
     /// </summary>
     public static class DateTimeCheckExtensions
     {
-        private static DateTime Round(this DateTime dt, TimeUnit unit)
+        internal static DateTime Round(this DateTime dt, TimeUnit unit)
         {
             return new DateTime(dt.Ticks - (dt.Ticks % TimeHelper.GetInTicks(1, unit)), dt.Kind);
         }
